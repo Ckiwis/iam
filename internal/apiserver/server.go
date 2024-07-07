@@ -86,7 +86,7 @@ func (s *apiServer) PrepareRun() preparedAPIServer {
 	s.gs.AddShutdownCallback(shutdown.ShutdownFunc(func(string) error {
 		mysqlStore, _ := mysql.GetMySQLFactoryOr(nil)
 		if mysqlStore != nil {
-			return mysqlStore.Close()
+			_ = mysqlStore.Close()
 		}
 
 		s.gRPCAPIServer.Close()
@@ -167,7 +167,7 @@ func buildGenericConfig(cfg *config.Config) (genericConfig *genericapiserver.Con
 	return
 }
 
-//nolint: unparam
+// nolint: unparam
 func buildExtraConfig(cfg *config.Config) (*ExtraConfig, error) {
 	return &ExtraConfig{
 		Addr:         fmt.Sprintf("%s:%d", cfg.GRPCOptions.BindAddress, cfg.GRPCOptions.BindPort),
@@ -180,7 +180,11 @@ func buildExtraConfig(cfg *config.Config) (*ExtraConfig, error) {
 
 func (s *apiServer) initRedisStore() {
 	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
+	s.gs.AddShutdownCallback(shutdown.ShutdownFunc(func(string) error {
+		cancel()
+
+		return nil
+	}))
 
 	config := &storage.Config{
 		Host:                  s.redisOptions.Host,

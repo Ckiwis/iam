@@ -8,18 +8,17 @@ package main
 
 import (
 	"math/rand"
-	"os"
-	"runtime"
 	"time"
+
+	_ "go.uber.org/automaxprocs"
+
+	_ "go.uber.org/automaxprocs"
 
 	"github.com/marmotedu/iam/internal/pump"
 )
 
 func main() {
 	rand.Seed(time.Now().UTC().UnixNano())
-	if len(os.Getenv("GOMAXPROCS")) == 0 {
-		runtime.GOMAXPROCS(runtime.NumCPU())
-	}
 
 	pump.NewApp("iam-pump").Run()
 }

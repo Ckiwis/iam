@@ -1,8 +1,10 @@
+#!/usr/bin/env bash
+
 # Copyright 2020 Lingfei Kong <colin404@foxmail.com>. All rights reserved.
 # Use of this source code is governed by a MIT style
 # license that can be found in the LICENSE file.
 
-#!/usr/bin/bash
+
 
 # IAM 项目源码根目录
 IAM_ROOT=$(dirname "${BASH_SOURCE[0]}")/../..
@@ -39,7 +41,7 @@ readonly REDIS_PASSWORD=${REDIS_PASSWORD:-${PASSWORD}} # Redis 密码
 
 # MongoDB 配置
 readonly MONGO_ADMIN_USERNAME=${MONGO_ADMIN_USERNAME:-root} # MongoDB root 用户
-readonly MONGO_ADMIN_PASSWORD=${MONGO_ADMIN_PASSWORD:-${PASSWORD}} # MongoDB root用户密码
+readonly MONGO_ADMIN_PASSWORD=${MONGO_ADMIN_PASSWORD:-${PASSWORD}} # MongoDB root 用户密码
 readonly MONGO_HOST=${MONGO_HOST:-127.0.0.1} # MongoDB 地址
 readonly MONGO_PORT=${MONGO_PORT:-27017} # MongoDB 端口
 readonly MONGO_USERNAME=${MONGO_USERNAME:-iam} # MongoDB 用户名
@@ -78,6 +80,9 @@ readonly IAM_AUTHZ_SERVER_RPCSERVER=${IAM_AUTHZ_SERVER_RPCSERVER:-${IAM_APISERVE
 readonly IAM_PUMP_HOST=${IAM_PUMP_HOST:-127.0.0.1} # iam-pump 部署机器 IP 地址
 readonly IAM_PUMP_COLLECTION_NAME=${IAM_PUMP_COLLECTION_NAME:-iam_analytics}
 readonly IAM_PUMP_MONGO_URL=${IAM_PUMP_MONGO_URL:-mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:${MONGO_PORT}/${IAM_PUMP_COLLECTION_NAME}?authSource=${IAM_PUMP_COLLECTION_NAME}}
+
+# iam-watcher配置
+readonly IAM_WATCHER_HOST=${IAM_WATCHER_HOST:-127.0.0.1} # iam-watcher 部署机器 IP 地址
 
 # iamctl 配置
 readonly CONFIG_USER_USERNAME=${CONFIG_USER_USERNAME:-admin}

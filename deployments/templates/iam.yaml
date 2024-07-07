@@ -67,7 +67,7 @@ data:
       password: iam59!z$ # redis 密码
       #addrs:
       #master-name: # redis 集群 master 名称
-      #username: # redis 登陆用户名
+      #username: # redis 登录用户名
       #database: # redis 数据库
       #optimisation-max-idle:  # redis 连接池中的最大空闲连接数
       #optimisation-max-active: # 最大活跃连接数
@@ -140,7 +140,7 @@ data:
       database: 0 # redis 数据库
       #addrs:
       #master-name: # redis 集群 master 名称
-      #username: # redis 登陆用户名
+      #username: # redis 登录用户名
       #optimisation-max-idle:  # redis 连接池中的最大空闲连接数
       #optimisation-max-active: # 最大活跃连接数
       #timeout: # 连接 redis 时的超时时间
@@ -191,7 +191,7 @@ data:
       enable-cluster: false # 是否开启集群模式
       #addrs:
       #master-name: # redis 集群 master 名称
-      #username: # redis 登陆用户名
+      #username: # redis 登录用户名
       #timeout: # 连接 redis 时的超时时间
       #use-ssl: # 是否启用 TLS
       #ssl-insecure-skip-verify: # 当连接 redis 时允许使用自签名证书
@@ -365,7 +365,7 @@ spec:
       - command:
         - /opt/iam/bin/iam-apiserver
         - --config=/etc/iam/iam-apiserver.yaml
-        image: "ccr.ccs.tencentyun.com/marmotedu/iam-apiserver-amd64:v1.0.10"
+        image: "ccr.ccs.tencentyun.com/marmotedu/iam-apiserver-amd64:v1.6.2"
         name: iam-apiserver
         ports:
         - containerPort: 8443
@@ -490,7 +490,7 @@ spec:
       - command:
         - /opt/iam/bin/iam-authz-server
         - --config=/etc/iam/iam-authz-server.yaml
-        image: "ccr.ccs.tencentyun.com/marmotedu/iam-authz-server-amd64:v1.0.10"
+        image: "ccr.ccs.tencentyun.com/marmotedu/iam-authz-server-amd64:v1.6.2"
         name: iam-authz-server
         ports:
         - containerPort: 9443
@@ -612,7 +612,7 @@ spec:
       - command:
         - /opt/iam/bin/iam-pump
         - --config=/etc/iam/iam-pump.yaml
-        image: "ccr.ccs.tencentyun.com/marmotedu/iam-pump-amd64:v1.0.10"
+        image: "ccr.ccs.tencentyun.com/marmotedu/iam-pump-amd64:v1.6.2"
         name: iam-pump
         ports:
         - containerPort: 9443
@@ -734,7 +734,7 @@ spec:
       - command:
         - sleep
         - "3600"
-        image: "ccr.ccs.tencentyun.com/marmotedu/iamctl-amd64:v1.0.10"
+        image: "ccr.ccs.tencentyun.com/marmotedu/iamctl-amd64:v1.6.2"
         name: iamctl
         resources:
           limits: 

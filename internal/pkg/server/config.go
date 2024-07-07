@@ -105,10 +105,12 @@ func (c *Config) Complete() CompletedConfig {
 
 // New returns a new instance of GenericAPIServer from the given config.
 func (c CompletedConfig) New() (*GenericAPIServer, error) {
+	// setMode before gin.New()
+	gin.SetMode(c.Mode)
+
 	s := &GenericAPIServer{
 		SecureServingInfo:   c.SecureServing,
 		InsecureServingInfo: c.InsecureServing,
-		mode:                c.Mode,
 		healthz:             c.Healthz,
 		enableMetrics:       c.EnableMetrics,
 		enableProfiling:     c.EnableProfiling,
@@ -127,8 +129,8 @@ func LoadConfig(cfg string, defaultName string) {
 		viper.SetConfigFile(cfg)
 	} else {
 		viper.AddConfigPath(".")
-		viper.AddConfigPath("/etc/iam")
 		viper.AddConfigPath(filepath.Join(homedir.HomeDir(), RecommendedHomeDir))
+		viper.AddConfigPath("/etc/iam")
 		viper.SetConfigName(defaultName)
 	}
 

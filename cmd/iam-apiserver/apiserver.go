@@ -8,18 +8,17 @@ package main
 
 import (
 	"math/rand"
-	"os"
-	"runtime"
 	"time"
+
+	_ "go.uber.org/automaxprocs"
+
+	_ "go.uber.org/automaxprocs"
 
 	"github.com/marmotedu/iam/internal/apiserver"
 )
 
 func main() {
 	rand.Seed(time.Now().UTC().UnixNano())
-	if len(os.Getenv("GOMAXPROCS")) == 0 {
-		runtime.GOMAXPROCS(runtime.NumCPU())
-	}
 
 	apiserver.NewApp("iam-apiserver").Run()
 }

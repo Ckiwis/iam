@@ -13,7 +13,7 @@ apiServer:
   image:
     repository: ccr.ccs.tencentyun.com/marmotedu/iam-apiserver-amd64
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "v1.0.10"
+    tag: "v1.6.2"
   insecure:
     bindPort: 8080
   service:
@@ -32,7 +32,7 @@ authzServer:
   image:
     repository: ccr.ccs.tencentyun.com/marmotedu/iam-authz-server-amd64
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "v1.0.10"
+    tag: "v1.6.2"
   insecure:
     bindPort: 9090
   service:
@@ -47,19 +47,31 @@ pump:
   image:
     repository: ccr.ccs.tencentyun.com/marmotedu/iam-pump-amd64
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "v1.0.10"
+    tag: "v1.6.2"
   healthPort: 7070
   service:
     http:
       port: 7070 # service暴露在cluster ip上的端口，通过<cluster ip>:port访问服务,通过此端口集群内的服务可以相互访问
       targetPort: 7070 # Pod的外部访问端口，port和nodePort的数据通过这个端口进入到Pod内部，Pod里面的containers的端口映射到这个端口，提供服务
 
+watcher:
+  name: iam-watcher
+  image:
+    repository: ccr.ccs.tencentyun.com/marmotedu/iam-watcher-amd64
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "v1.6.2"
+  healthPort: 5050
+  service:
+    http:
+      port: 5050 # service暴露在cluster ip上的端口，通过<cluster ip>:port访问服务,通过此端口集群内的服务可以相互访问
+      targetPort: 5050 # Pod的外部访问端口，port和nodePort的数据通过这个端口进入到Pod内部，Pod里面的containers的端口映射到这个端口，提供服务
+
 iamctl:
   name: iamctl
   image:
     repository: ccr.ccs.tencentyun.com/marmotedu/iamctl-amd64
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "v1.0.10"
+    tag: "v1.6.2"
 
 image:
   pullPolicy: Always

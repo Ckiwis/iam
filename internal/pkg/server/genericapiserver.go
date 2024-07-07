@@ -23,11 +23,10 @@ import (
 	"github.com/marmotedu/iam/pkg/log"
 )
 
-// GenericAPIServer contains state for a iam api server.
+// GenericAPIServer contains state for an iam api server.
 // type GenericAPIServer gin.Engine.
 type GenericAPIServer struct {
 	middlewares []string
-	mode        string
 	// SecureServingInfo holds configuration of the TLS server.
 	SecureServingInfo *SecureServingInfo
 
@@ -83,7 +82,6 @@ func (s *GenericAPIServer) InstallAPIs() {
 
 // Setup do some setup work for gin engine.
 func (s *GenericAPIServer) Setup() {
-	gin.SetMode(s.mode)
 	gin.DebugPrintRouteFunc = func(httpMethod, absolutePath, handlerName string, nuHandlers int) {
 		log.Infof("%-6s %-s --> %s (%d handlers)", httpMethod, absolutePath, handlerName, nuHandlers)
 	}
@@ -94,7 +92,6 @@ func (s *GenericAPIServer) InstallMiddlewares() {
 	// necessary middlewares
 	s.Use(middleware.RequestID())
 	s.Use(middleware.Context())
-	// s.Use(limits.RequestSizeLimiter(10))
 
 	// install custom middlewares
 	for _, m := range s.middlewares {
@@ -225,7 +222,7 @@ func (s *GenericAPIServer) ping(ctx context.Context) error {
 			return err
 		}
 		// Ping the server by sending a GET request to `/healthz`.
-		// nolint: gosec
+
 		resp, err := http.DefaultClient.Do(req)
 		if err == nil && resp.StatusCode == http.StatusOK {
 			log.Info("The router has been deployed successfully.")
@@ -237,7 +234,7 @@ func (s *GenericAPIServer) ping(ctx context.Context) error {
 
 		// Sleep for a second to continue the next ping.
 		log.Info("Waiting for the router, retry in 1 second.")
-		time.Sleep(time.Second)
+		time.Sleep(1 * time.Second)
 
 		select {
 		case <-ctx.Done():
